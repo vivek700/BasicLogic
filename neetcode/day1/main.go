@@ -1,3 +1,5 @@
+//contains duplicate
+
 package main
 
 import "fmt"
