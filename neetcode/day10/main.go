@@ -2,29 +2,58 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
+
+func isAlphaNumeric(n byte) bool {
+	if n != ' ' && 65 <= n && n <= 90 || n >= 97 && n <= 122 || '0' <= n && n <= '9' {
+		return true
+
+	}
+	return false
+}
+
+func isSameChar(cl, cr int) bool {
+
+	if cr < 65 || cl < 65 {
+		if cl == cr {
+			return true
+
+		}
+		return false
+
+	}
+	if cl-cr == 0 || cl-cr == 32 || cl-cr == -32 {
+		return true
+	}
+	return false
+}
 
 func isPalindrome(s string) bool {
 
-	newStr := ""
-	newReverseStr := ""
-
-	for i := len(s) - 1; i >= 0; i-- {
-		if string(s[i]) != " " && 65 <= s[i] && s[i] <= 90 || s[i] >= 97 && s[i] <= 122 || '0' <= s[i] && s[i] <= '9' {
-			newReverseStr += strings.ToLower(string(s[i]))
+	leftptr := 0
+	rightptr := len(s) - 1
+	for leftptr != rightptr && leftptr < rightptr {
+		fmt.Println(leftptr)
+		fmt.Println(rightptr)
+		if !isAlphaNumeric(s[leftptr]) {
+			leftptr++
+			continue
 		}
-		if string(s[(len(s)-1)-i]) != " " && 65 <= s[(len(s)-1)-i] && s[(len(s)-1)-i] <= 90 || s[(len(s)-1)-i] >= 97 && s[(len(s)-1)-i] <= 122 || '0' <= s[(len(s)-1)-i] && s[(len(s)-1)-i] <= '9' {
-			newStr += strings.ToLower(string(s[(len(s)-1)-i]))
+		if !isAlphaNumeric(s[rightptr]) {
+			rightptr--
+			continue
+		}
+		if isSameChar(int(s[leftptr]), int(s[rightptr])) {
+			leftptr++
+			rightptr--
+		} else {
+
+			fmt.Println(s[leftptr], s[rightptr])
+			return false
 		}
 
 	}
-
-	if newReverseStr == newStr {
-		return true
-	}
-
-	return false
+	return true
 
 }
 
@@ -32,9 +61,13 @@ func main() {
 	str := "Was it a car or a cat I saw?"
 	s := "tab a cat"
 	s1 := "0P"
+	s2 := "A man, a plan, a canal: Panama"
+	s3 := "1b1"
 
 	fmt.Println(isPalindrome(str))
 	fmt.Println(isPalindrome(s))
 	fmt.Println(isPalindrome(s1))
+	fmt.Println(isPalindrome(s2))
+	fmt.Println(isPalindrome(s3))
 
 }
