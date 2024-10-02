@@ -12,20 +12,13 @@ func isAlphaNumeric(n byte) bool {
 	return false
 }
 
-func isSameChar(cl, cr int) bool {
+func toLowerCase(ch byte) byte {
 
-	if cr < 65 || cl < 65 {
-		if cl == cr {
-			return true
-
-		}
-		return false
-
+	if ch >= 65 && ch <= 90 {
+		return ch + 32
 	}
-	if cl-cr == 0 || cl-cr == 32 || cl-cr == -32 {
-		return true
-	}
-	return false
+	return ch
+
 }
 
 func isPalindrome(s string) bool {
@@ -33,8 +26,7 @@ func isPalindrome(s string) bool {
 	leftptr := 0
 	rightptr := len(s) - 1
 	for leftptr != rightptr && leftptr < rightptr {
-		fmt.Println(leftptr)
-		fmt.Println(rightptr)
+
 		if !isAlphaNumeric(s[leftptr]) {
 			leftptr++
 			continue
@@ -43,12 +35,10 @@ func isPalindrome(s string) bool {
 			rightptr--
 			continue
 		}
-		if isSameChar(int(s[leftptr]), int(s[rightptr])) {
+		if toLowerCase(s[leftptr]) == toLowerCase(s[rightptr]) {
 			leftptr++
 			rightptr--
 		} else {
-
-			fmt.Println(s[leftptr], s[rightptr])
 			return false
 		}
 
