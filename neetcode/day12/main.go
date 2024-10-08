@@ -17,24 +17,22 @@ func threeSum(n []int) [][]int {
 		}
 		l, r := i+1, len(n)-1
 		for l < r {
-			if l == i {
-				l++
-				continue
-			}
-			if r == i {
+			sum := k + n[l] + n[r]
+			if sum > 0 {
 				r--
-				continue
-			}
+			} else if sum < 0 {
+				l++
 
-			if k+n[l]+n[r] == 0 {
+			} else {
 				newNum = append(newNum, []int{k, n[l], n[r]})
 				l++
-				r--
-			} else if k+n[l]+n[r] < 0 {
-				l++
-
-			} else if k+n[l]+n[r] > 0 {
-				r--
+				for l < r {
+					if n[l] == n[l-1] {
+						l++
+					} else {
+						break
+					}
+				}
 
 			}
 
