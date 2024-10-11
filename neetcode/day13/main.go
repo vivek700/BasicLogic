@@ -28,8 +28,10 @@ func maxArea(nums []int) int {
 
 func main() {
 	nums := []int{1, 7, 2, 5, 4, 7, 3, 6}
-	nums1 := []int{2, 2, 2}
+	nums1 := []int{1, 7, 2, 5, 4, 7, 3, 6, 45, 6, 8, 5, 0, 9, 10, 4}
+	nums2 := []int{2, 2, 2}
 
 	fmt.Println(maxArea(nums))
 	fmt.Println(maxArea(nums1))
+	fmt.Println(maxArea(nums2))
 }
