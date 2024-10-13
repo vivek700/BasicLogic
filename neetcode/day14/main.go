@@ -14,13 +14,7 @@ func trap(height []int) int {
 			k := l + 1
 			for k < r {
 				if height[k] < height[l] && height[k] < height[r] {
-					if height[l] < height[r] {
-						trapWater += height[l] * (r - l - 1)
-
-					} else {
-						trapWater += height[r] * (r - l - 1)
-
-					}
+					k++
 
 				} else {
 					break
