@@ -1,33 +1,38 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func trap(heights []int) int {
-	l := 0
+func trap(height []int) int {
+	l, r := 0, len(height)-1
 	trapWater := 0
+	for l < r {
+		if height[l] == 0 {
+			l++
+		} else {
+			k := l + 1
+			for k < r {
+				if height[k] < height[l] && height[k] < height[r] {
+					if height[l] < height[r] {
+						trapWater += height[l] * (r - l - 1)
 
-	for l < len(heights) {
-		if heights[l] > 0 {
-			r := l + 1
-			h := 0
-			for r < len(heights) {
-				if heights[l] > heights[r] {
-					h += heights[r]
-					r++
-				} else if r-l == 1 {
-					break
+					} else {
+						trapWater += height[r] * (r - l - 1)
+
+					}
 
 				} else {
-					trapWater += heights[l]*(r-l-1) - h
 					break
 				}
 			}
-			l = r
 
-		} else {
-			l++
+			if height[l] > height[r] {
+				r--
+			} else {
+				l++
+			}
 		}
-
 	}
 	return trapWater
 }
