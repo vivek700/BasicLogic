@@ -14,19 +14,25 @@ func trap(height []int) int {
 			waterDrop := maxL - height[l]
 			if waterDrop > 0 {
 				trapWater += waterDrop
-				maxL = height[l]
 
 			}
-			l++
+			maxL = height[l]
+			fmt.Println("maxL:", maxL)
 
 		} else {
 			waterDrop := maxR - height[l]
 			if waterDrop > 0 {
 				trapWater += waterDrop
-				maxR = height[r]
 
 			}
+			maxR = height[r]
+			fmt.Println("maxR:", maxR)
+
+		}
+		if maxL > maxR {
 			r--
+		} else {
+			l++
 		}
 
 	}
@@ -36,8 +42,8 @@ func trap(height []int) int {
 
 func main() {
 	heights := []int{0, 2, 0, 3, 1, 0, 1, 3, 2, 1}
-	heights1 := []int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
+	// heights1 := []int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
 	fmt.Println(trap(heights))
-	fmt.Println(trap(heights1))
+	// fmt.Println(trap(heights1))
 
 }
