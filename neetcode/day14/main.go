@@ -5,27 +5,33 @@ import (
 )
 
 func trap(height []int) int {
-	l, r := 0, len(height)-1
 	trapWater := 0
-	h := 0
-	for l < r {
-		if height[l] == 0 {
-			l++
-		}
-		if height[r] == 0 {
-			r--
-		}
-		if height[l] < height[r] {
-			trapWater += height[l] * (r - l - 1)
-			l++
-		} else {
-			trapWater += height[r] * (r - l - 1)
-			r--
+	l, r := 0, len(height)-1
+	maxL, maxR := 0, height[r]
 
+	for l < r {
+		if maxL < maxR {
+			waterDrop := maxL - height[l]
+			if waterDrop > 0 {
+				trapWater += waterDrop
+				maxL = height[l]
+
+			}
+			l++
+
+		} else {
+			waterDrop := maxR - height[l]
+			if waterDrop > 0 {
+				trapWater += waterDrop
+				maxR = height[r]
+
+			}
+			r--
 		}
 
 	}
 	return trapWater
+
 }
 
 func main() {
