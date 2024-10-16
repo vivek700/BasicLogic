@@ -2,32 +2,47 @@ package main
 
 import (
 	"fmt"
+	"slices"
 )
 
 func lengthOfLongestSubstring(str string) int {
-	maxLen := 1
-	len := 0
-	for i, v := range str {
-		if i == 0 {
-			continue
-		}
-		if int(str[i-1])+1 == int(v) {
-			len++
-		} else {
-			if len > maxLen {
-				maxLen += len
+	maxLen := 0
+	l := 0
+	charset := []string{}
+
+	for r, v := range str {
+		k := 0
+		for k < len(charset) {
+			if charset[k] != string(v) {
+				k++
+			} else {
+				charset = slices.Delete(charset, l, l+1)
+				l++
+				break
 			}
-			len = 0
 		}
+		charset = append(charset, string(v))
+
+		maxLen = max(maxLen, r-l+1)
 	}
+	// fmt.Println(maxLen)
+	// return len(charset)
+	fmt.Println(charset)
 	return maxLen
+
 }
 
 func main() {
 	s := "zxyzxyz"
-	s1 := "xxxx"
+	// s1 := "xxxx"
+	s3 := "pwwkew"
+	s4 := "abcabcbb"
+	s5 := "dvdf"
 
 	fmt.Println(lengthOfLongestSubstring(s))
-	fmt.Println(lengthOfLongestSubstring(s1))
+	// fmt.Println(lengthOfLongestSubstring(s1))
+	fmt.Println(lengthOfLongestSubstring(s3))
+	fmt.Println(lengthOfLongestSubstring(s4))
+	fmt.Println(lengthOfLongestSubstring(s5))
 
 }
