@@ -5,25 +5,27 @@ import (
 )
 
 func checkInclusion(s1, s2 string) bool {
-	sumOfS1 := 0
-	sum2 := 0
+
+	s1Array := [26]int{}
 	for _, v := range s1 {
-		sumOfS1 += int(v)
+		index := v - 'a'
+		s1Array[index]++
 
 	}
-	l, r := 0, 0
-	for r < len(s2) {
 
-		if r-l < len(s1) {
-			sum2 += int(s2[r])
-			if sum2 == sumOfS1 && (s2[l] == s1[0] || s2[l] == s1[len(s1)-1] || s2[r] == s1[0] || s2[r] == s1[len(s1)-1]) {
-				return true
-			}
-		} else {
-			l++
-			r--
-			sum2 -= int(s2[l-1])
+	l, r := 0, len(s1)
+	for r < len(s2)+1 {
+		s2Array := [26]int{}
+		for _, v := range s2[l:r] {
+			index := v - 'a'
+			s2Array[index]++
+
 		}
+
+		if s1Array == s2Array {
+			return true
+		}
+		l++
 		r++
 	}
 
