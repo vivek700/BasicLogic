@@ -4,25 +4,31 @@ import "fmt"
 
 func characterReplacement(str string, k int) int {
 	maxLen := 0
-	counter := 0
+	maxValue := 0
 	l := 0
 
 	count := make(map[rune]int)
 	for r, v := range str {
-		count[v] = 1 + count[v]
-		if counter < count[rune(str[l])] {
-			counter = count[rune(str[l])]
-		} else if counter < count[rune(str[r])] {
-			counter = count[rune(str[r])]
+		_, ok := count[v]
+		if !ok {
+			count[v] = 0
+
 		}
-		if r-l+1-counter > k {
-			counter--
+		count[v] = 1 + count[v]
+
+		for _, value := range count {
+			if value > maxValue {
+				maxValue = value
+			}
+		}
+
+		for (r-l+1)-maxValue > k {
+			count[rune(str[l])]--
 			l++
 		}
-		maxLen = max(len(count), r-l+1)
+		maxLen = max(maxLen, r-l+1)
 
 	}
-	fmt.Println(count)
 
 	return maxLen
 
@@ -35,6 +41,7 @@ func main() {
 	s3 := "ABBB"
 	s4 := "AABABBA"
 	s5 := "AABA"
+	s6 := "ABAB"
 
 	fmt.Println(characterReplacement(s, 2))
 	fmt.Println(characterReplacement(s1, 1))
@@ -42,5 +49,6 @@ func main() {
 	fmt.Println(characterReplacement(s3, 2))
 	fmt.Println(characterReplacement(s4, 1))
 	fmt.Println(characterReplacement(s5, 0))
+	fmt.Println(characterReplacement(s6, 0))
 
 }
