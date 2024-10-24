@@ -2,27 +2,31 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 func maxSlidingWindow(n []int, k int) []int {
-
-	l, r := 0, k
+	l, r := 0, 0
 
 	res := []int{}
+	q := []int{}
 
-	for r < len(n)+1 {
-		max := math.Inf(-1)
-		for _, v := range n[l:r] {
-			if float64(v) > max {
-				max = float64(v)
-			}
+	for r < len(n) {
 
+		for len(q) > 0 && n[q[len(q)-1]] < n[r] {
+			q = q[:len(q)-1]
 		}
-		res = append(res, int(max))
+		q = append(q, r)
+		if l > q[0] {
+			q = q[1:]
+		}
 
-		l++
+		if r+1 >= k {
+			res = append(res, n[q[0]])
+			l++
+		}
+
 		r++
+
 	}
 
 	return res
