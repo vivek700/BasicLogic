@@ -3,7 +3,8 @@ package main
 import "fmt"
 
 type MinStack struct {
-	stack []int
+	stack    []int
+	minStack []int
 }
 
 func Constructor() MinStack {
@@ -14,10 +15,18 @@ func Constructor() MinStack {
 func (this *MinStack) Push(val int) {
 	this.stack = append(this.stack, val)
 
+	if len(this.minStack) == 0 {
+		this.minStack = append(this.minStack, val)
+
+	} else {
+		this.minStack = append(this.minStack, min(val, this.minStack[len(this.minStack)-1]))
+	}
+
 }
 
 func (this *MinStack) Pop() {
 	this.stack = this.stack[:len(this.stack)-1]
+	this.minStack = this.minStack[:len(this.minStack)-1]
 
 }
 
@@ -27,13 +36,7 @@ func (this *MinStack) Top() int {
 }
 
 func (this *MinStack) GetMin() int {
-	min := this.stack[0]
-	for _, v := range this.stack {
-		if v < min {
-			min = v
-		}
-	}
-	return min
+	return this.minStack[len(this.minStack)-1]
 
 }
 
