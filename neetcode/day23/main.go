@@ -12,31 +12,29 @@ type Stack struct {
 
 func (n *Stack) Add() {
 	res := 0
-	for _, v := range n.nums {
-		res += v
-	}
-	n.nums = []int{res}
+	res = n.nums[len(n.nums)-1] + n.nums[len(n.nums)-2]
+	n.nums = n.nums[:len(n.nums)-2]
+	n.nums = append(n.nums, res)
 }
 func (n *Stack) Subtract() {
-	res := n.nums[0]
-	for _, v := range n.nums {
-		res -= v
-	}
-	n.nums = []int{res}
-}
-func (n *Stack) Divide() {
-	res := n.nums[0]
-	for _, v := range n.nums {
-		res /= v
-	}
-	n.nums = []int{res}
+	res := 0
+	res = n.nums[len(n.nums)-2] - n.nums[len(n.nums)-1]
+	n.nums = n.nums[:len(n.nums)-2]
+	n.nums = append(n.nums, res)
 }
 func (n *Stack) Mul() {
-	res := n.nums[0]
-	for _, v := range n.nums {
-		res *= v
-	}
-	n.nums = []int{res}
+	res := 0
+	res = n.nums[len(n.nums)-1] * n.nums[len(n.nums)-2]
+	n.nums = n.nums[:len(n.nums)-2]
+	n.nums = append(n.nums, res)
+}
+func (n *Stack) Divide() {
+	res := 0
+	res = n.nums[len(n.nums)-2] / n.nums[len(n.nums)-1]
+	fmt.Println(res)
+	n.nums = n.nums[:len(n.nums)-2]
+	fmt.Println(n.nums)
+	n.nums = append(n.nums, res)
 }
 
 func evalRPN(tokens []string) int {
@@ -67,8 +65,10 @@ func evalRPN(tokens []string) int {
 
 func main() {
 
-	tokens := []string{"1", "2", "+", "3", "*"}
+	tokens := []string{"1", "2", "+", "3", "*", "4", "-"}
+	tokens1 := []string{"4", "13", "5", "/", "+"}
 
 	fmt.Println(evalRPN(tokens))
+	fmt.Println(evalRPN(tokens1))
 
 }
