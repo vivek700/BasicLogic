@@ -17,15 +17,14 @@ func largestRectangleArea(heights []int) int {
 			index := stack[len(stack)-1].index
 			height := stack[len(stack)-1].height
 			stack = stack[:len(stack)-1]
-			maxArea = max(height * (i - index))
-
+			maxArea = max(maxArea, height*(i-index))
 			start = index
 
 		}
 		stack = append(stack, Pair{index: start, height: h})
 	}
 	for _, p := range stack {
-		maxArea = max(p.height * (len(heights) - p.index))
+		maxArea = max(maxArea, p.height*(len(heights)-p.index))
 	}
 	return maxArea
 
