@@ -7,15 +7,16 @@ func search(n []int, target int) int {
 	l, r:= 0, len(n)-1
 
 	for l <= r  {
-		mid := int((l+r)/2)
+		// mid := int((l+r)/2)
+		mid := l+(r-l)/2
 		
 		if target == n[mid] {
 			return mid
 		} else if target < n[mid] {
-			r = mid
+			r = mid - 1
 			
 		} else if target > n[mid] {
-			l = mid+1
+			l = mid + 1
 			
 		}
 	}
