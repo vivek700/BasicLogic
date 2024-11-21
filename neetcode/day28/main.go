@@ -4,9 +4,9 @@ import "fmt"
 
 
 func search(n []int, target int) int {
-	l, r:= 0, len(n)
+	l, r:= 0, len(n)-1
 
-	for l < r  {
+	for l <= r  {
 		mid := int((l+r)/2)
 		
 		if target == n[mid] {
