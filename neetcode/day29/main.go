@@ -18,15 +18,17 @@ func search(nums []int, target int) bool {
 }
 
 func searchMatrix(matrix [][]int, target int) bool {
-	// for _, item := range matrix {
+	for _, item := range matrix {
+		if search(item, target) {
+			return true
+		}
 
-	// }
+	}
 	return false
 }
 
 func main() {
 	matrix := [][]int{{1, 2, 4, 8}, {10, 11, 12, 13}, {14, 20, 30, 40}}
-	fmt.Println(searchMatrix(matrix, 10))
-	fmt.Println(search([]int{1, 2, 3, 4, 5, 6, 8, 9, 20}, 8))
+	fmt.Println(searchMatrix(matrix, 22))
 
 }
